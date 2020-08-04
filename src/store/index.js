@@ -1,15 +1,28 @@
 import Vue from 'vue';
 
 const state = Vue.observable({
-  lists: [],
+  doc: null,
 });
 
 export const getters = {
-  lists: () => state.lists,
+  doc: () => state.doc,
+  lists: () => !state.doc
+    ? []
+    : state.doc.getRootObject()
+    ? state.doc.getRootObject().lists
+    : [],
 }
 
 export const mutations = {
-  setLists: (v) => state.lists = v,
+  setDoc: (doc) => {
+    state.doc = doc;
+    state.lists = doc.getRootObject().lists;
+  },
+  updateDoc: (changes) => { 
+    for (const change of changes) {
+      change.execute(state.doc.getJSONRoot())
+    }
+  },
 }
 
 export default {

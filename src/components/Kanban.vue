@@ -45,7 +45,6 @@ export default {
     return {
       title: '',
       opened: null,
-      doc: null,
     }
   },
   methods: {
@@ -106,15 +105,14 @@ export default {
           }
         }, 'create default list if not exists');
 
-        doc.subscribe(() => {
-          this.setLists(doc.getRootObject().lists)
+        const self = this
+        doc.subscribe((event) => {
+          self.updateDoc(event.value);
         })
         
         this.$client.sync().then(() => {
-          this.setLists(doc.getRootObject().lists)
+          this.setDoc(doc)
         })
-
-        this.doc = doc;
       })
   }
 }
