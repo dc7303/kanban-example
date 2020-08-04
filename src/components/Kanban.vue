@@ -104,11 +104,6 @@ export default {
             root['lists'] = dummyList;
           }
         }, 'create default list if not exists');
-
-        const self = this
-        doc.subscribe((event) => {
-          self.updateDoc(event.value);
-        })
         
         this.$client.sync().then(() => {
           this.setDoc(doc)
