@@ -94,7 +94,7 @@ export default {
     },
   },
   created() {
-    const doc = yorkie.createDocument('example', 'kanban-board');
+    const doc = yorkie.createDocument('example', `kanban-board-${getYYYYMMDD()}`);
     this
       .$client
       .attach(doc)
@@ -110,6 +110,11 @@ export default {
         })
       })
   }
+}
+
+function getYYYYMMDD() {
+  const now = new Date();
+  return`${now.getUTCFullYear()}${('0' + (now.getUTCMonth() + 1)).slice(-2)}${('0' + now.getUTCDate()).slice(-2)}`;
 }
 </script>
 
