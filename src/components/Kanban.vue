@@ -94,7 +94,7 @@ export default {
     },
   },
   created() {
-    const doc = yorkie.createDocument('example', `kanban-board-${getYYYYMMDD()}`);
+    const doc = yorkie.createDocument('kanban-example', `kanban-board-${getYYYYMMDD()}`);
     this
       .$client
       .attach(doc)
